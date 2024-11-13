@@ -1,46 +1,63 @@
 ------------------------------ # ------------------------------ # ------------------------------
 
-MenuVisible = false
-local pauseMenuHash = GetHashKey("FE_MENU_VERSION_MP_PAUSE")
-
+CustomMenuVisible = false
+SubMenuVisible = false
+local hashes = {
+    ["settings"] = GetHashKey("FE_MENU_VERSION_LANDING_MENU"),
+    ["map"] = GetHashKey("FE_MENU_VERSION_MP_PAUSE")
+}
 ------------------------------ # ------------------------------ # ------------------------------
 
 CreateThread(function ()
     while true do
         Wait(0)
-        if not MenuVisible then
-            DisableFrontendThisFrame()
+
+        DisableControlAction(0, 200, true)
+
+        if IsDisabledControlJustPressed(0, 200) and not SubMenuVisible then
+            OpenCustomMenu()
         end
 
-        if IsControlJustPressed(0, 200) then
-            OpenCustomMenu()
+        if IsPauseMenuActive() then
+            SubMenuVisible = true
+        else
+            SubMenuVisible = false
         end
     end
 end)
 
 ------------------------------ # ------------------------------ # ------------------------------
 
-function OpenMap()
-    ActivateFrontendMenu(pauseMenuHash, true, -1)
+function OpenFrontend(style)
+    ActivateFrontendMenu(hashes[style], true, -1)
 
-    while GetCurrentFrontendMenuVersion() ~= pauseMenuHash do
-        Wait(1)
+    while not IsFrontendReadyForControl() do
+        Wait(0)
     end
 
-    PauseMenuceptionGoDeeper(0)
     SetFrontendActive(true)
+    if style == "map" then
+        PauseMenuceptionGoDeeper(0)
+    end
+
+    if style == "settings" then
+        return
+    end
+
+    CreateThread(function ()
+        while IsPauseMenuActive() do
+            Wait(0)
+            if IsDisabledControlJustPressed(0, 200) then
+                SetFrontendActive(false)
+            end
+        end
+    end)
 end
 
------------------------------- # ------------------------------ # ------------------------------
 
 function OpenEditorMenu()
     return print("no menu")
 end
 
------------------------------- # ------------------------------ # ------------------------------
-
-function OpenSettings()
-    return print("no menu")
-end
 
 ------------------------------ # ------------------------------ # ------------------------------
