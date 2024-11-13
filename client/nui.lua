@@ -6,7 +6,7 @@ function OpenCustomMenu()
         show = true
     })
     SetNuiFocus(true, true)
-    MenuVisible = true
+    CustomMenuVisible = true
 end
 
 function CloseCustomMenu()
@@ -15,7 +15,7 @@ function CloseCustomMenu()
         show = false
     })
     SetNuiFocus(false, false)
-    MenuVisible = false
+    CustomMenuVisible = false
 end
 
 ------------------------------ # ------------------------------ # ------------------------------
@@ -27,11 +27,10 @@ end)
 
 RegisterNUICallback("menuAction", function(data, cb)
 
-    CloseCustomMenu()
-    if data.action == "openMap" then OpenMap() end
+    if data.action == "map" then OpenFrontend("map") end
     if data.action == "rockstarEditor" then OpenEditorMenu() end
-    if data.action == "settings" then OpenSettings() end
-
+    if data.action == "settings" then OpenFrontend("settings") end
+    CloseCustomMenu()
     cb("ok")
 end)
 
