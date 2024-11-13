@@ -1,31 +1,63 @@
--- main.lua
-local menuVisible = false
+------------------------------ # ------------------------------ # ------------------------------
 
-RegisterCommand('menu', function()
-    SetNuiFocus(true, true)
-    SendNUIMessage({
-        action = "showMenu",
-        show = true
-    })
-    menuVisible = true
-end)
+CustomMenuVisible = false
+SubMenuVisible = false
+local hashes = {
+    ["settings"] = GetHashKey("FE_MENU_VERSION_LANDING_MENU"),
+    ["map"] = GetHashKey("FE_MENU_VERSION_MP_PAUSE")
+}
+------------------------------ # ------------------------------ # ------------------------------
 
-RegisterNUICallback('closeMenu', function(data, cb)
-    SetNuiFocus(false, false)
-    menuVisible = false
-    cb('ok')
-end)
+CreateThread(function ()
+    while true do
+        Wait(0)
 
-RegisterNUICallback('menuAction', function(data, cb)
-    if data.action == "openMap" then
-        -- Add your logic here
-        TriggerEvent('yourEvent:openMap')
-    elseif data.action == "rockstarEditor" then
-        -- Add your logic here
-        TriggerEvent('yourEvent:rockstarEditor')
-    elseif data.action == "settings" then
-        -- Add your logic here
-        TriggerEvent('yourEvent:settings')
+        DisableControlAction(0, 200, true)
+
+        if IsDisabledControlJustPressed(0, 200) and not SubMenuVisible then
+            OpenCustomMenu()
+        end
+
+        if IsPauseMenuActive() then
+            SubMenuVisible = true
+        else
+            SubMenuVisible = false
+        end
     end
-    cb('ok')
 end)
+
+------------------------------ # ------------------------------ # ------------------------------
+
+function OpenFrontend(style)
+    ActivateFrontendMenu(hashes[style], true, -1)
+
+    while not IsFrontendReadyForControl() do
+        Wait(0)
+    end
+
+    SetFrontendActive(true)
+    if style == "map" then
+        PauseMenuceptionGoDeeper(0)
+    end
+
+    if style == "settings" then
+        return
+    end
+
+    CreateThread(function ()
+        while IsPauseMenuActive() do
+            Wait(0)
+            if IsDisabledControlJustPressed(0, 200) then
+                SetFrontendActive(false)
+            end
+        end
+    end)
+end
+
+
+function OpenEditorMenu()
+    return print("no menu")
+end
+
+
+------------------------------ # ------------------------------ # ------------------------------
