@@ -7,20 +7,15 @@ $(document).ready(function() {
         if (event.data.action === "showMenu") {
             if (event.data.show) {
                 $('body').fadeIn(500);
-                updateSelection();
             } else {
                 $('body').fadeOut(500);
             }
         }
     });
 
-    function updateSelection() {
-        menuItems.removeClass('selected');
-        $(menuItems[selectedIndex]).addClass('selected');
-    }
-
     $(document).keydown(function(e) {
         switch(e.which) {
+            /*
             case 38: // up arrow
                 selectedIndex = (selectedIndex - 1 + menuItems.length) % menuItems.length;
                 updateSelection();
@@ -32,6 +27,7 @@ $(document).ready(function() {
             case 13: // enter
                 handleMenuAction($(menuItems[selectedIndex]).data('action'));
                 break;
+                */
             case 27: // escape
                 closeMenu();
                 break;
@@ -45,7 +41,7 @@ $(document).ready(function() {
     function handleMenuAction(action) {
         switch(action) {
             case 'continue':
-                // Add your logic here
+                closeMenu()
                 break;
             case "exit":
                 closeMenu()
