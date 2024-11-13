@@ -1,31 +1,46 @@
--- main.lua
-local menuVisible = false
+------------------------------ # ------------------------------ # ------------------------------
 
-RegisterCommand('menu', function()
-    SetNuiFocus(true, true)
-    SendNUIMessage({
-        action = "showMenu",
-        show = true
-    })
-    menuVisible = true
-end)
+MenuVisible = false
+local pauseMenuHash = GetHashKey("FE_MENU_VERSION_MP_PAUSE")
 
-RegisterNUICallback('closeMenu', function(data, cb)
-    SetNuiFocus(false, false)
-    menuVisible = false
-    cb('ok')
-end)
+------------------------------ # ------------------------------ # ------------------------------
 
-RegisterNUICallback('menuAction', function(data, cb)
-    if data.action == "openMap" then
-        -- Add your logic here
-        TriggerEvent('yourEvent:openMap')
-    elseif data.action == "rockstarEditor" then
-        -- Add your logic here
-        TriggerEvent('yourEvent:rockstarEditor')
-    elseif data.action == "settings" then
-        -- Add your logic here
-        TriggerEvent('yourEvent:settings')
+CreateThread(function ()
+    while true do
+        Wait(0)
+        if not MenuVisible then
+            DisableFrontendThisFrame()
+        end
+
+        if IsControlJustPressed(0, 200) then
+            OpenCustomMenu()
+        end
     end
-    cb('ok')
 end)
+
+------------------------------ # ------------------------------ # ------------------------------
+
+function OpenMap()
+    ActivateFrontendMenu(pauseMenuHash, true, -1)
+
+    while GetCurrentFrontendMenuVersion() ~= pauseMenuHash do
+        Wait(1)
+    end
+
+    PauseMenuceptionGoDeeper(0)
+    SetFrontendActive(true)
+end
+
+------------------------------ # ------------------------------ # ------------------------------
+
+function OpenEditorMenu()
+    return print("no menu")
+end
+
+------------------------------ # ------------------------------ # ------------------------------
+
+function OpenSettings()
+    return print("no menu")
+end
+
+------------------------------ # ------------------------------ # ------------------------------

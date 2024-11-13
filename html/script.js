@@ -47,34 +47,19 @@ $(document).ready(function() {
             case 'continue':
                 // Add your logic here
                 break;
-            case 'newGame':
-                $.post('https://your-resource-name/menuAction', JSON.stringify({
-                    action: "newGame"
+            case "exit":
+                closeMenu()
+                break
+            default:
+                $.post(`https://${GetParentResourceName()}/menuAction`, JSON.stringify({
+                    action: action
                 }));
-                break;
-            case 'openMap':
-                $.post('https://your-resource-name/menuAction', JSON.stringify({
-                    action: "openMap"
-                }));
-                break;
-				  case 'rockstarEditor':
-                $.post('https://your-resource-name/menuAction', JSON.stringify({
-                    action: "rockstarEditor"
-                }));
-                break;
-            case 'settings':
-                $.post('https://your-resource-name/menuAction', JSON.stringify({
-                    action: "settings"
-                }));
-                break;
-            case 'exit':
-                closeMenu();
-                break;
+                break
         }
     }
 
     function closeMenu() {
-        $.post('https://your-resource-name/closeMenu', JSON.stringify({}));
+        $.post(`https://${GetParentResourceName()}/closeMenu`, JSON.stringify({}));
         $('body').fadeOut(500);
     }
 });
