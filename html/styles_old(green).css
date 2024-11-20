@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: 'Share Tech Mono', monospace;
+    display: block;
+    overflow: hidden; /* Evita lo scorrimento orizzontale e verticale */
+}
+
+/* Menu laterale */
+#menu-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 370px; /* Larghezza fissa per il menu */
+    display: flex;
+    justify-content: center; /* Centra il contenuto orizzontalmente */
+    align-items: flex-start; /* Allinea gli elementi al top, useremo padding per centrarli meglio */
+    padding-right: 20px; /* Distanza dal bordo destro */
+    background-color: transparent; /* Rimuove sfondo opaco */
+    flex-direction: column; /* Centra i contenuti verticalmente */
+    z-index: 10; /* Assicurati che il menu sia in primo piano */
+    border-left: 4px solid #00ff9d; /* Contorno verde LED */
+    box-shadow: 0 0 10px 2px rgba(0, 255, 157, 0.7); /* Contorno verde LED */
+    padding-top: 100px; /* Aggiungi un po' di spazio sopra per abbassare il contenuto */
+}
+
+/* Sfondo del menu */
+.menu-background {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%; /* Imposta altezza a 100% per adattarsi al menu */
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    opacity: 0.8;
+}
+
+.menu-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Overlay scuro sopra l'immagine */
+    z-index: 2;
+}
+
+/* Contenuto del menu */
+.menu-content {
+    position: relative;
+    width: 100%; /* Rende il contenuto più largo rispetto al menu */
+    max-width: 320px; /* Limita la larghezza massima */
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Disposizione verticale per contenuti */
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra orizzontalmente */
+    z-index: 3;
+}
+
+/* Testo del menu */
+.menu-header {
+    margin-bottom: 40px;
+    margin-top: 20px; /* Aggiungi un margine superiore per spostare il logo più in basso */
+}
+
+.menu-header img {
+    max-width: 100%;
+    height: auto;
+}
+
+.menu-options {
+    width: 100%;
+}
+
+/* Elemento delle opzioni del menu */
+/* Elemento delle opzioni del menu */
+.menu-item {
+    font-family: 'Share Tech Mono', monospace; /* Mantenuto il font originale */
+    color: #00ff9d;
+    font-size: 40px;
+    padding: 15px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+    text-align: center;
+    display: block; /* Assicura che l'elemento prenda tutta la larghezza */
+    width: auto; /* Larghezza auto di default */
+}
+
+/* Effetto hover per estendere la lunghezza */
+.menu-item:hover {
+    background: rgba(0, 255, 157, 0.2); /* Aumento la trasparenza del colore di sfondo */
+    border-left: 4px solid #00ff9d;
+    padding-left: 30px; /* Aumenta l'indentazione del testo verso sinistra */
+    width: 100%; /* Allunga l'elemento a tutta la larghezza del menu */
+}
+
+/* Effetto quando l'elemento è selezionato */
+.menu-item.selected {
+    background: rgba(0, 255, 157, 0.2);
+    border-left: 4px solid #00ff9d;
+    padding-left: 30px;
+    width: 100%; /* Mantiene l'elemento a tutta larghezza anche quando è selezionato */
+}
+
+
+/* Riempire gli spazi vuoti nel menu */
+#menu-container {
+    display: flex;
+    flex-direction: column; /* Aggiunta una colonna per riempire meglio gli spazi */
+    justify-content: space-between; /* Aggiunta per distribuire gli spazi */
+}
+
+/* Animazione scanlines per il menu */
+@keyframes scanlines {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(4px);
+    }
+}
+
+/* Scanlines che attraversano il menu */
+#menu-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        rgba(0, 255, 157, 0.1) 50%,
+        rgba(0, 0, 0, 0.1) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    animation: scanlines 1s linear infinite;
+    z-index: -1; /* Mette le scanlines dietro il contenuto del menu */
+}

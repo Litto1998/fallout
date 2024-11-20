@@ -7,6 +7,7 @@ body {
     font-family: 'Share Tech Mono', monospace;
     display: block;
     overflow: hidden; /* Evita lo scorrimento orizzontale e verticale */
+ 
 }
 
 /* Menu laterale */
@@ -20,11 +21,11 @@ body {
     justify-content: center; /* Centra il contenuto orizzontalmente */
     align-items: flex-start; /* Allinea gli elementi al top, useremo padding per centrarli meglio */
     padding-right: 20px; /* Distanza dal bordo destro */
-    background-color: transparent; /* Rimuove sfondo opaco */
+    background-color: #a1b780; /* Sfondo del menu con una variante più scura di #b4c592 */
     flex-direction: column; /* Centra i contenuti verticalmente */
     z-index: 10; /* Assicurati che il menu sia in primo piano */
-    border-left: 4px solid #00ff9d; /* Contorno verde LED */
-    box-shadow: 0 0 10px 2px rgba(0, 255, 157, 0.7); /* Contorno verde LED */
+    border-left: 4px solid #7a9c56; /* Colore di bordo più scuro */
+    box-shadow: 0 0 10px 2px rgba(122, 156, 86, 0.7); /* Ombra con una tonalità più scura */
     padding-top: 100px; /* Aggiungi un po' di spazio sopra per abbassare il contenuto */
 }
 
@@ -83,10 +84,9 @@ body {
 }
 
 /* Elemento delle opzioni del menu */
-/* Elemento delle opzioni del menu */
 .menu-item {
     font-family: 'Share Tech Mono', monospace; /* Mantenuto il font originale */
-    color: #00ff9d;
+    color: #6f8d4f; /* Colore del testo con una sfumatura più scura */
     font-size: 40px;
     padding: 15px 20px;
     margin: 10px 0;
@@ -100,20 +100,19 @@ body {
 
 /* Effetto hover per estendere la lunghezza */
 .menu-item:hover {
-    background: rgba(0, 255, 157, 0.2); /* Aumento la trasparenza del colore di sfondo */
-    border-left: 4px solid #00ff9d;
+    background: rgba(180, 197, 146, 0.2); /* Aumento la trasparenza del colore di sfondo */
+    border-left: 4px solid #7a9c56; /* Colore di bordo hover più scuro */
     padding-left: 30px; /* Aumenta l'indentazione del testo verso sinistra */
     width: 100%; /* Allunga l'elemento a tutta la larghezza del menu */
 }
 
 /* Effetto quando l'elemento è selezionato */
 .menu-item.selected {
-    background: rgba(0, 255, 157, 0.2);
-    border-left: 4px solid #00ff9d;
+    background: rgba(180, 197, 146, 0.2);
+    border-left: 4px solid #7a9c56;
     padding-left: 30px;
     width: 100%; /* Mantiene l'elemento a tutta larghezza anche quando è selezionato */
 }
-
 
 /* Riempire gli spazi vuoti nel menu */
 #menu-container {
@@ -141,7 +140,7 @@ body {
     width: 100%;
     height: 100%;
     background: linear-gradient(
-        rgba(0, 255, 157, 0.1) 50%,
+        rgba(180, 197, 146, 0.1) 50%, /* Sfuma il verde principale */
         rgba(0, 0, 0, 0.1) 50%
     );
     background-size: 100% 4px;
